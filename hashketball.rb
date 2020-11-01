@@ -1,4 +1,6 @@
 # Write your code below game_hash
+require 'pry'
+
 
 def game_hash
   {
@@ -128,3 +130,89 @@ def game_hash
 end
 
 # Write code here
+
+def get_players 
+  players = game_hash.keys.map do |team|
+    game_hash[team][:players]
+  end
+  players.flatten
+end
+
+def num_points_scored(player_name)
+  current_player = get_players.find do |the_player|
+    the_player[:player_name] == player_name
+  end
+  current_player[:points]
+  # binding.pry
+end
+
+def shoe_size(player_name)
+ current_player = get_players.find do |the_player|
+    the_player[:player_name] == player_name
+  end
+  current_player[:shoe]
+end
+
+def get_team
+  players_team = game_hash.keys.map do |team|
+    game_hash[team]
+  end
+end
+# puts get_team
+
+def team_colors(team_name)
+  team_c = get_team.find do |the_color|
+    the_color[:team_name] == team_name
+  end
+  team_c[:colors]
+end
+
+def team_names
+  the_team_name = get_team.map do |team|
+    team[:team_name]
+  end
+  # the_team_name
+end
+puts team_names
+
+    
+def player_numbers(team_name)
+    team_players = []
+      [:home, :away].each do |side|
+        if team_name == game_hash[side][:team_name]
+        team_players = game_hash[side][:players]
+        end
+      end
+      team_players.map {|play_num| play_num[:number]}
+end
+puts player_numbers("Brooklyn Nets").to_s
+
+def player_stats(player_name)
+  all_stats = []
+    get_players.map do |player| 
+    if player[:player_name] == player_name
+     all_stats = player
+    end
+  end
+ all_stats
+end
+def player_shoe
+  shoe_sizes = get_players.map do |find_shoes|
+    find_shoes[:shoe]
+  end
+  shoe_sizes.max()
+end
+puts player_shoe
+def big_shoe_rebounds
+  found_rebounds = []
+
+   get_players.find do |player_s|
+    if player_s[:shoe] == player_shoe
+      found_rebounds = player_s[:rebounds]
+    end
+  end
+  found_rebounds
+  
+end
+
+ 
