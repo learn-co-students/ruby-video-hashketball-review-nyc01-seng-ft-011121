@@ -1,5 +1,5 @@
 # Write your code below game_hash
-
+require 'pry'
 def game_hash
   {
     home: {
@@ -127,4 +127,90 @@ def game_hash
   }
 end
 
-# Write code here
+def num_points_scored(player_name)
+  points_scored = 0
+  
+  game_hash.each do |location, team_attributes|
+    team_attributes[:players].each do |player_attribute, value|
+      if player_attribute[:player_name] == player_name 
+         points_scored = player_attribute[:points]
+      end
+    end
+  end
+  points_scored
+end
+
+def shoe_size(player_name)
+  size = 0 
+  
+  game_hash.each do |location, team_attributes|
+    team_attributes[:players].each do |player_attribute, value|
+      if player_attribute[:player_name] == player_name
+        size = player_attribute[:shoe]
+      end
+    end
+  end
+  size
+end
+
+def team_colors(team_name)
+  colors = ''
+  
+  game_hash.each do |location, team_attributes|
+    if team_attributes[:team_name] == team_name
+      colors = team_attributes[:colors]
+    end
+  end
+  colors
+end
+
+def team_names
+  array = []
+  
+  game_hash.each do |location, team_attributes|
+    array.push(team_attributes[:team_name])
+  end
+  array
+end
+
+def player_numbers(team_name)
+  jersey_array = []
+  
+  game_hash.each do |location, team_attributes|
+    if team_attributes[:team_name] == team_name
+      team_attributes[:players].each do |player_attribute, value|
+        jersey_array.push(player_attribute[:number])
+      end
+    end
+  end
+  jersey_array
+end
+  
+def player_stats(player_name)
+  stat_hash = {}
+  
+  game_hash.each do |location, team_attributes|
+    team_attributes[:players].each do |player_attribute, value|
+      if player_attribute[:player_name] == player_name
+        stat_hash = player_attribute
+      end
+    end
+  end
+  stat_hash
+end
+
+def big_shoe_rebounds
+  current_biggest_shoe = 0
+  rebounds = 0
+  
+  game_hash.each do |location, team_attributes|
+    team_attributes[:players].each do |player_attribute, value|
+      if player_attribute[:shoe] > current_biggest_shoe
+        current_biggest_shoe = player_attribute[:shoe]
+        rebounds = player_attribute[:rebounds]
+      end
+    end
+  end
+  rebounds
+end
+      
